@@ -6,13 +6,28 @@
     <atom:link href="https://adizaum.github.io/one-tab-feed/feed.xml" rel="self" type="application/rss+xml"/>
     <description>A calm, 10-minute daily briefing on tech, world news, and pop culture. Every tab you meant to read, closed for you. New episodes Sunday to Thursday.</description>
     <language>en</language>
+    <copyright>© 2026 One Tab. All rights reserved.</copyright>
     <itunes:subtitle>All the news. One tab.</itunes:subtitle>
     <itunes:author>One Tab</itunes:author>
     <itunes:summary>A calm, 10-minute daily briefing on tech, world news, and pop culture. Every tab you meant to read, closed for you. New episodes Sunday to Thursday.</itunes:summary>
+    <itunes:owner>
+      <itunes:name>One Tab</itunes:name>
+      <itunes:email>adizaum@gmail.com</itunes:email>
+    </itunes:owner>
     <itunes:image href="https://adizaum.github.io/one-tab-feed/cover.png"/>
     <itunes:category text="News"/>
     <itunes:explicit>false</itunes:explicit>
     <itunes:type>episodic</itunes:type>
-
+    <item>
+      <title>OpenAI Pulls the Plug on Its Own Training Run</title>
+      <description>OpenAI pauses training of its most capable models. Plus: the Trump–Xi summit ends with a short trade truce, Apple loses a record $5.7B patent case, Spain's housing protests, and Olivia Rodrigo's tour opener.</description>
+      <itunes:summary>OpenAI pauses training of its most capable models. Plus: the Trump–Xi summit ends with a short trade truce, Apple loses a record $5.7B patent case, Spain's housing protests, and Olivia Rodrigo's tour opener.</itunes:summary>
+      <enclosure url="https://github.com/adizaum/one-tab-feed/releases/download/ep-2026-09-27/one-tab-2026-09-27.mp3" length="9300480" type="audio/mpeg"/>
+      <guid isPermaLink="false">ep-2026-09-27</guid>
+      <pubDate>Sun, 27 Sep 2026 12:22:22 +0000</pubDate>
+      <itunes:duration>581</itunes:duration>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
   </channel>
 </rss>
