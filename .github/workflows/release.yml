@@ -1,0 +1,47 @@
+# Releases the day's One Tab episode at exactly 8:00am Israel time.
+# The episode arrives earlier as a hidden draft release (MP3 + updated feed.xml).
+name: Release episode
+
+on:
+  schedule:
+    # 04:00 UTC = 07:00 Israel summer time / 06:00 winter time. Days 0-4 = Sunday to Thursday.
+    - cron: "0 4 * * 0-4"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    env:
+      GH_TOKEN: ${{ github.token }}
+      TZ: Asia/Jerusalem
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Wait for today's episode, then release it at 8:00
+        run: |
+          TAG="ep-$(date +%F)"
+          RELEASE_AT=$(date -d "$(date +%F) 08:00" +%s)
+          GIVE_UP_AT=$(date -d "$(date +%F) 10:00" +%s)
+
+          # The draft is usually ready long before 8:00. If it never comes, the episode was held.
+          until gh release view "$TAG" >/dev/null 2>&1; do
+            if [ "$(date +%s)" -ge "$GIVE_UP_AT" ]; then echo "No episode today."; exit 0; fi
+            sleep 60
+          done
+
+          NOW=$(date +%s)
+          if [ "$NOW" -lt "$RELEASE_AT" ]; then sleep $((RELEASE_AT - NOW)); fi
+
+          gh release download "$TAG" --pattern feed.xml --output feed.xml --clobber
+          gh release edit "$TAG" --draft=false
+          gh release delete-asset "$TAG" feed.xml --yes
+
+          git config user.name "one-tab-bot"
+          git config user.email "one-tab-bot@users.noreply.github.com"
+          git add feed.xml
+          git commit -m "Release $TAG"
+          git push
